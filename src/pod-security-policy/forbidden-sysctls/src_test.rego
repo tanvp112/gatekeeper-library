@@ -1,104 +1,161 @@
 package k8spspforbiddensysctls
 
 test_input_sysctls_forbidden_all {
-    input := { "review": input_review, "parameters": input_parameters_wildcard}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 2
 }
 
 test_input_sysctls_forbidden_in_list {
-    input := { "review": input_review, "parameters": input_parameters_in_list}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_in_list}
+    results := violation with input as inp
     count(results) == 2
 }
 
 test_input_sysctls_forbidden_in_list_mixed {
-    input := { "review": input_review, "parameters": input_parameters_one_in_list}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_one_in_list}
+    results := violation with input as inp
     count(results) == 1
 }
 
 test_input_sysctls_forbidden_not_in_list {
-    input := { "review": input_review, "parameters": input_parameters_not_in_list}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_not_in_list}
+    results := violation with input as inp
     count(results) == 0
 }
 
 test_input_sysctls_forbidden_in_list_wildcard {
-    input := { "review": input_review, "parameters": input_parameters_in_list_wildcard}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_in_list_wildcard}
+    results := violation with input as inp
     count(results) == 2
 }
 
 test_input_sysctls_forbidden_in_list_wildcard_mixed {
-    input := { "review": input_review, "parameters": input_parameters_one_in_list_wildcard}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_one_in_list_wildcard}
+    results := violation with input as inp
     count(results) == 1
 }
 
 test_input_sysctls_forbidden_not_in_list_wildcard {
-    input := { "review": input_review, "parameters": input_parameters_not_in_list_wildcard}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_not_in_list_wildcard}
+    results := violation with input as inp
     count(results) == 0
 }
 
 test_input_sysctls_empty_forbidden {
-    input := { "review": input_review, "parameters": input_parameters_empty}
-    results := violation with input as input
+    inp := { "review": input_review, "parameters": input_parameters_empty}
+    results := violation with input as inp
     count(results) == 0
 }
 
-test_input_no_sysctls_wildcard {
-    input := { "review": input_review_empty, "parameters": input_parameters_wildcard}
-    results := violation with input as input
+test_input_seccontext_empty_wildcard {
+    inp := { "review": input_review_seccontext_empty, "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 0
 }
 
-test_input_empty_sysctls_wildcard {
-    input := { "review": input_review_sysctls_empty, "parameters": input_parameters_wildcard}
-    results := violation with input as input
+test_input_sysctls_empty_wildcard {
+    inp := { "review": input_review_sysctls_empty, "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 0
 }
 
-test_input_empty_wildcard {
-    input := { "review": input_review_empty_seccontext, "parameters": input_parameters_wildcard}
-    results := violation with input as input
+test_input_seccontext_null_wildcard {
+    inp := { "review": input_review_seccontext_null, "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 0
 }
 
-test_input_no_sysctls_empty_forbidden {
-    input := { "review": input_review_empty, "parameters": input_parameters_empty}
-    results := violation with input as input
+test_input_seccontext_empty_empty_forbidden {
+    inp := { "review": input_review_seccontext_empty, "parameters": input_parameters_empty}
+    results := violation with input as inp
     count(results) == 0
 }
 
-test_input_empty_empty_forbidden {
-    input := { "review": input_review_empty_seccontext, "parameters": input_parameters_empty}
-    results := violation with input as input
+test_input_sysctls_empty_empty_forbidden {
+    inp := { "review": input_review_sysctls_empty, "parameters": input_parameters_empty}
+    results := violation with input as inp
+    count(results) == 0
+}
+
+test_input_seccontext_null_empty_forbidden {
+    inp := { "review": input_review_seccontext_null, "parameters": input_parameters_empty}
+    results := violation with input as inp
     count(results) == 0
 }
 
 test_input_init_sysctls_forbidden_all {
-    input := { "review": input_init_review, "parameters": input_parameters_wildcard}
-    results := violation with input as input
+    inp := { "review": input_init_review, "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 2
 }
 
 test_input_init_sysctls_forbidden_in_list {
-    input := { "review": input_init_review, "parameters": input_parameters_in_list}
-    results := violation with input as input
+    inp := { "review": input_init_review, "parameters": input_parameters_in_list}
+    results := violation with input as inp
     count(results) == 2
 }
 
 test_input_init_sysctls_forbidden_in_list_mixed {
-    input := { "review": input_init_review, "parameters": input_parameters_one_in_list}
-    results := violation with input as input
+    inp := { "review": input_init_review, "parameters": input_parameters_one_in_list}
+    results := violation with input as inp
     count(results) == 1
 }
 
 test_input_init_sysctls_forbidden_not_in_list {
-    input := { "review": input_init_review, "parameters": input_parameters_not_in_list}
-    results := violation with input as input
+    inp := { "review": input_init_review, "parameters": input_parameters_not_in_list}
+    results := violation with input as inp
+    count(results) == 0
+}
+
+test_input_sysctls_allowed_all {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_allowed_all}
+    results := violation with input as inp
+    count(results) == 0
+}
+
+# Empty allowedSysctls means none are allowed.
+# This is in contrast to unspecified allowedSysctls which does not
+# place any restrictions by itself.
+test_input_sysctls_allowed_empty {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_allowed_empty}
+    results := violation with input as inp
+    count(results) == 2
+}
+
+test_input_sysctls_allowed_exact {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_allowed_exact}
+    results := violation with input as inp
+    count(results) == 0
+}
+
+test_input_sysctls_allowed_wildcards {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_allowed_wildcards}
+    results := violation with input as inp
+    count(results) == 0
+}
+
+test_input_sysctls_some_allowed_exact {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_some_allowed_exact}
+    results := violation with input as inp
+    count(results) == 1
+}
+
+test_input_sysctls_some_allowed_wildcards {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_some_allowed_wildcards}
+    results := violation with input as inp
+    count(results) == 1
+}
+
+test_input_sysctls_allowed_and_forbidden {
+    inp := { "review": input_review, "parameters": input_parameters_sysctls_allowed_and_forbidden}
+    results := violation with input as inp
+    count(results) == 2
+}
+
+test_update {
+    inp := { "review": object.union(input_review, {"operation": "UPDATE"}), "parameters": input_parameters_wildcard}
+    results := violation with input as inp
     count(results) == 0
 }
 
@@ -110,7 +167,7 @@ input_review = {
         "spec": {
             "containers": {
                 "name": "nginx",
-                "image": "nginx",
+                "image": "nginx"
             },
             "securityContext": {
                 "sysctls": [
@@ -134,9 +191,9 @@ input_init_review = {
             "name": "nginx"
         },
         "spec": {
-            "containers": {
+            "initContainers": {
                 "name": "nginx",
-                "image": "nginx",
+                "image": "nginx"
             },
             "securityContext": {
                 "sysctls": [
@@ -154,7 +211,7 @@ input_init_review = {
     }
 }
 
-input_review_empty = {
+input_review_seccontext_empty = {
     "object": {
         "metadata": {
             "name": "nginx"
@@ -187,7 +244,7 @@ input_review_sysctls_empty = {
     }
 }
 
-input_review_empty_seccontext = {
+input_review_seccontext_null = {
     "object": {
         "metadata": {
             "name": "nginx"
@@ -247,4 +304,49 @@ input_parameters_not_in_list_wildcard = {
 
 input_parameters_empty = {
     "forbiddenSysctls": []
+}
+
+input_parameters_sysctls_allowed_all = {
+    "allowedSysctls": ["*"]
+}
+
+input_parameters_sysctls_allowed_empty = {
+    "allowedSysctls": []
+}
+
+input_parameters_sysctls_allowed_wildcards = {
+    "allowedSysctls": [
+        "kernel.*",
+        "net.*"
+    ]
+}
+
+input_parameters_sysctls_allowed_exact = {
+    "allowedSysctls": [
+        "kernel.shm_rmid_forced",
+        "net.core.somaxconn"
+    ]
+}
+
+input_parameters_sysctls_some_allowed_exact = {
+    "allowedSysctls": [
+        "net.core.somaxconn"
+    ]
+}
+
+input_parameters_sysctls_some_allowed_wildcards = {
+    "allowedSysctls": [
+        "net.*"
+    ]
+}
+
+input_parameters_sysctls_allowed_and_forbidden = {
+    "allowedSysctls": [
+        "kernel.shm_rmid_forced",
+        "net.core.somaxconn"
+    ],
+    "forbiddenSysctls": [
+        "kernel.shm_rmid_forced",
+        "net.core.somaxconn"
+    ]
 }
